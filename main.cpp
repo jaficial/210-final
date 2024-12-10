@@ -8,7 +8,8 @@
 #include <ctime>
 
 using namespace std;
-
+const int TOTAL_DRINKS = 5;
+const int TOTAL_CUSTOMERS = 41;
 string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami", 
                     "Tara", "Axel", "Ola", "Beth", "Boyd", "Rosa", "Ezra",
                      "Mara", "Rico", "Kurt", "Nell", "Cami", "Zeke", "Yoko", 
@@ -17,6 +18,7 @@ string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami",
                      "Amy", "Owen", "Joel", "Joey", "Eddy", "Hana"}; // CITED: Names used from lab-23's data file
 
 string drinks[] = {"Black Coffee", "Latte", "Tea", "Water", "Juice"};
+
 // NOTE: 4 BOOTHS TO CREATE:
 /*
     COFFEE BOOTH: USE LINKED LIST
@@ -47,15 +49,28 @@ void pop_head(Node *head, Node *next){
 
 }
 
-void push_back(Node *prev, Node *newnode){
-    Node *temp_node;
-    prev
+void push_back(Node *tail, Node *newnode){
+    tail->next = newnode;
+    newnode->next = nullptr;
 }
 
 int main(){
     
     srand(time(0));
+    Node *head = nullptr;
+    Node *newNode = nullptr;
+    int rand_drink_indx = 0;
+    int rand_name_indx = 0;
+    for (int i = 0; i < 2; i++){
+        rand_drink_indx = rand() % TOTAL_DRINKS;
+        rand_name_indx = rand() % TOTAL_CUSTOMERS;
 
+        newNode->customer_name = names[rand_name_indx];
+        newNode->drink_order = drinks[rand_drink_indx];
+        if (!head){ // if this is the first node, it is the new head; CITED: cited from my lab-17 submission
+            
+        } 
+    }
     
     return 0;
 }
