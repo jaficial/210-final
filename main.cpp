@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 #include <ctime>
-#include <list>
+
 
 using namespace std;
 const int TOTAL_DRINKS = 5;
@@ -20,19 +20,6 @@ string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami",
                      "Amy", "Owen", "Joel", "Joey", "Eddy", "Hana"}; // CITED: Names used from lab-23's data file
 
 string drinks[] = {"Black Coffee", "Latte", "Tea", "Water", "Juice"};
-
-// NOTE: 4 BOOTHS TO CREATE:
-/*
-    COFFEE BOOTH: USE LINKED LIST
-    - linked list struct should be a node that contains the customer's name and drink order
-    - create data arrays with names and drink orders from which to randomly create customer data
-    - run for 10 rounds
-    - initialize queue with 3 customers
-        - for any round, there's a 50% probability that someone will join the queue
-        - customer at head of queue is always served
-    - sometimes there might not be a customer being served 
-
-*/ 
 
 struct Node {
     string customer_name;
@@ -127,15 +114,14 @@ int main(){
     int rand_name_indx = 0;
 
     // initializing the deque, vector, and list with 3 customers
-    // NOTE: std:: list will be my choice for the 4th data structure
     for (int i = 0; i < 3; i++){
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
-        Name temp_name(names[rand_name_indx]);
+        Name temp_name = Name(names[rand_name_indx]);
         muffin_q.push_back(temp_name);
 
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
-        temp_name(names[rand_name_indx]);
-        bracelets_q.push_back(temp_name);
+        Name temp_name2 = Name(names[rand_name_indx]);
+        bracelets_q.push_back(temp_name2);
     }
 
     // initializing linked list with 3 customers/nodes
@@ -207,13 +193,14 @@ int main(){
             
         }
 
-        // FOR MUFFIN QUEUE
+        // FOR MUFFIN QUEUE (deque container)
         probability = rand() % 100;
         if (probability < 50){ // someone joins queue
             cout << endl;
             rand_name_indx = rand() % TOTAL_CUSTOMERS;
             temp_name = names[rand_name_indx];
-            muffin_q.push_back(temp_name);
+            Name temp_name_d = Name(temp_name);
+            muffin_q.push_back(temp_name_d);
             muffin_q.pop_front();
             output_deque(muffin_q);
         }
@@ -224,13 +211,14 @@ int main(){
             output_deque(muffin_q);
         }
 
-        // FOR BRACELETS QUEUE
+        // FOR BRACELETS QUEUE (vector container)
         probability = rand() % 100;
         if (probability < 50){ // someone joins the queue
             cout << endl;
             rand_name_indx = rand() % TOTAL_CUSTOMERS;
             temp_name = names[rand_name_indx];
-            bracelets_q.push_back(temp_name);
+            Name temp_name_v = Name(temp_name);
+            bracelets_q.push_back(temp_name_v);
             auto bracelets_q_head = bracelets_q.begin();// NOTE: vector doesn't have pop_front method, use .begin() to access the head element
             bracelets_q.erase(bracelets_q_head);
             output_vector(bracelets_q);
