@@ -5,9 +5,7 @@
 #include <vector>
 #include <deque>
 #include <fstream>
-#include <deque>
 #include <string>
-#include <vector>
 #include <ctime>
 
 using namespace std;
@@ -45,6 +43,8 @@ void pop_head(Node *, Node *);
 void push_back(Node *, Node *, string, string);
 void delete_linked_list(Node *, Node *);
 void output_linked_list(Node *);
+void output_deque(deque<string> );
+void output_vector(vector<string> );
 
 // iterates through the whole linked list and deletes every node
 void delete_linked_list(Node * current, Node *head){ 
@@ -83,6 +83,28 @@ void output_linked_list(Node *linked_list){
     while (current){
         cout << "Customer Name: " << current->customer_name << ", Customer Order: " << current->drink_order << endl;
         current = current->next;
+    }
+}
+
+void output_deque(deque<string> muffin_q){
+    cout << "Current Queue for Muffin Shop:" << endl;
+    if (muffin_q.empty()){
+        cout << "Nobody in queue." << endl;
+    }
+
+    for (auto iter : muffin_q){
+        cout << iter << endl;
+    }
+}
+
+void output_vector(vector<string> bracelets_q){
+    cout << "Current Queue for Bracelets Shop:" << endl;
+    if (bracelets_q.empty()){
+        cout << "Nobody in queue." << endl;
+        return;
+    }
+    for (auto iter : bracelets_q){
+        cout << iter << endl;
     }
 }
 
@@ -178,6 +200,28 @@ int main(){
             
         }
 
+        // FOR MUFFIN QUEUE
+        probability = rand() % 100;
+        if (probability < 50){ // someone joins queue
+            cout << endl;
+            rand_name_indx = rand() % TOTAL_CUSTOMERS;
+            temp_name = names[rand_name_indx];
+            muffin_q.push_back(temp_name);
+            muffin_q.pop_front();
+            output_deque(muffin_q);
+        }
+
+        else{ // noone joins the queue
+            cout << endl;
+            muffin_q.pop_front();
+            output_deque(muffin_q);
+        }
+
+        // FOR BRACELETS QUEUE
+        probability = rand() % 100;
+        if (probability < 50){ // someone joins
+
+        }
     }
     return 0;
 }
