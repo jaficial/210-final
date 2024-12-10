@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <deque>
+#include <string>
 #include <vector>
 #include <ctime>
 
@@ -39,7 +40,7 @@ struct Node {
 };
 
 void pop_head(Node *, Node *);
-void push_back(Node *, Node *, int);
+void push_back(Node *, Node *, string, string);
 void delete_linked_list(Node *, Node *);
 void output_linked_list(Node *);
 
@@ -62,18 +63,21 @@ void pop_head(Node *head, Node *next){
 }
 
 // pushes a new node to the back of the list
-void push_back(Node *tail, Node *newnode){
-    tail->next = newnode;
+void push_back(Node *tail, Node *newnode, string temp_name, string temp_drink){
     newnode->next = nullptr;
-    newnode->
+    newnode->customer_name = temp_name;
+    newnode->drink_order = temp_drink;
+    tail->next = newnode;
 }
 
 
-void output_linked_list(Node *current){
-    if (!current){
+void output_linked_list(Node *linked_list){
+    if (!linked_list){
         cout << "Noone is currently in queue." << endl;
         return;
     }
+
+    Node *current = linked_list;
     while (current){
         cout << "Customer Name: " << current->customer_name << ", Customer Order: " << current->drink_order << endl;
         current = current->next;
@@ -84,41 +88,35 @@ int main(){
     
     srand(time(0));
     Node *head = nullptr;
-    
-    Node *tail = nullptr;
+    Node *tail = head;
+
     
     int rand_drink_indx = 0;
     int rand_name_indx = 0;
     
     // initializing linked list with 3 customers/nodes
+    // CITED: Cited my lab-18 submission for initializing a linked list
     for (int i = 0; i < 3; i++){
         string temp_name;
         string temp_drink;
         rand_drink_indx = rand() % TOTAL_DRINKS;
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
         
-        // Node *newNode = nullptr;
-        // newNode->customer_name = names[rand_name_indx];
-        // newNode->drink_order = drinks[rand_drink_indx];
-        // cout << "This is the rand_drink_indx: " << rand_drink_indx << ", and this is the rand_name_indx: " << rand_name_indx << endl;
-        
-        cout << "Customer's name: " << names[rand_name_indx] << endl;
-        cout << "Customer's drink: " << drinks[rand_drink_indx] << endl;
-        
-        // if (!head){ // if this is the first node, it is the new head; CITED: cited from my lab-17 submission
-        //     head = newNode;
-        //     newNode->next = nullptr;
-        //     tail = head;
-        // }
+        Node *newNode = new Node;
+        if (!head){
+            newNode->next = nullptr;
+            newNode->customer_name = names[rand_name_indx];
+            newNode->drink_order = drinks[rand_drink_indx];
+            head = newNode;
+            tail = head;
+        }
 
-        // else { // its a second node/following node
-        //     push_back(tail, newNode);
-        // }
+        else {
+            push_back(tail, newNode, temp_name, temp_drink);
+        }
     }
-    
     Node *current = head; // current will be used to iterate through linked list
 
     output_linked_list(current);
-
     return 0;
 }
