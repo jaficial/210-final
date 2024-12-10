@@ -54,7 +54,7 @@ void delete_linked_list(Node * current, Node *head){
 }
 
 // pops the head node of the list, head->next becomes the new head
-void pop_head(Node *head, Node *next){
+void pop_head(Node *head, Node *next_node){
     Node *temp_node;
     temp_node = head->next;
     delete head;
@@ -96,7 +96,7 @@ int main(){
     
     // initializing linked list with 3 customers/nodes
     // CITED: Cited my lab-18 submission for initializing a linked list
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 4; i++){
         string temp_name;
         string temp_drink;
         rand_drink_indx = rand() % TOTAL_DRINKS;
@@ -104,7 +104,6 @@ int main(){
         
         Node *newNode = new Node;
         if (!head){
-            cout << "made it here for head node" << endl; 
             newNode->next = nullptr;
             newNode->customer_name = names[rand_name_indx];
             newNode->drink_order = drinks[rand_drink_indx];
@@ -113,20 +112,47 @@ int main(){
         }
 
         else {
-            cout << "made it here for subsequent nodes" << endl;
+            
             temp_name = names[rand_name_indx];
             temp_drink = drinks[rand_drink_indx];
             push_back(tail, newNode, temp_name, temp_drink);
         }
     }
-    //  cout << "should be the head: " << head->customer_name << " " << head->drink_order << endl;
-    //  cout << "should be the head as well: " << tail->customer_name << " " << tail->drink_order << endl;
 
     Node *current = head; // current will be used to iterate through linked list
-    // output_linked_list(head);
-    for (int i = 0; i < 3; i++){
-        cout << "Customer's name: " << current->customer_name << " Customer's order: " << current->drink_order << endl;
-        current = current->next;
+    output_linked_list(head);
+    
+    int probability = 0;
+    for (int i = 0; i < 10; i++){
+        rand_drink_indx = rand() % TOTAL_DRINKS;
+        rand_name_indx = rand() % TOTAL_CUSTOMERS;
+        string temp_name = names[rand_name_indx];
+        string temp_drink = drinks[rand_drink_indx];
+        Node *temp_node = new Node;
+        probability = rand() % 100;
+
+        if (probability < 50){ // someone joins the queue
+            if (!head){ // there is no head node
+                temp_node->next = nullptr;
+                temp_node->customer_name = names[rand_name_indx];
+                temp_node->drink_order = drinks[rand_drink_indx];
+                head = temp_node;
+                tail = head;
+            }
+
+            else{
+                temp_name = names[rand_name_indx];
+                temp_drink = drinks[rand_drink_indx];
+                push_back(tail, temp_node, temp_name, temp_drink);
+            }
+        }
+
+        else {
+            pop_head(head, head->next);
+        }
+        
+
+
     }
     return 0;
 }
