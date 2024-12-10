@@ -8,7 +8,6 @@
 #include <string>
 #include <ctime>
 
-
 using namespace std;
 const int TOTAL_DRINKS = 5;
 const int TOTAL_CUSTOMERS = 41;
@@ -66,7 +65,7 @@ void push_back(Node *tail, Node *newnode, string temp_name, string temp_drink){
     newnode->next = nullptr;
 }
 
-
+// iterates through the linked list, and outputs the name of the customer, and the customer's order
 void output_linked_list(Node *linked_list){
     if (!linked_list){
         cout << "Noone is currently in queue." << endl;
@@ -80,6 +79,7 @@ void output_linked_list(Node *linked_list){
     }
 }
 
+// iterates through the deque, and outputs the name of the customer, in the order of the queue
 void output_deque(deque<Name> muffin_q){
     cout << "Current Queue for Muffin Shop:" << endl;
     if (muffin_q.empty()){
@@ -91,6 +91,7 @@ void output_deque(deque<Name> muffin_q){
     }
 }
 
+// iterates through the vector, and outputs the name of the customer, in the order of the queue
 void output_vector(vector<Name> bracelets_q){
     cout << "Current Queue for Bracelets Shop:" << endl;
     if (bracelets_q.empty()){
@@ -181,7 +182,7 @@ int main(){
             }
         }
 
-        else { // nooone joins the queue, 
+        else { // noone joins the queue, 
             if(!head){ // if there isn't anyone in the queue
                 cout << "There is noone in the queue currently." << endl;
             }
@@ -230,8 +231,7 @@ int main(){
             bracelets_q.erase(bracelets_q_head);
             output_vector(bracelets_q);
         }
-
-
     }
+
     return 0;
 }
