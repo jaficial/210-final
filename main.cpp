@@ -5,6 +5,7 @@
 #include <fstream>
 #include <deque>
 #include <vector>
+#include <ctime>
 
 using namespace std;
 
@@ -32,19 +33,28 @@ string drinks[] = {"Black Coffee", "Latte", "Tea", "Water", "Juice"};
 struct Node {
     string customer_name;
     string drink_order;
+    Node *next;
 };
 
 void pop_head(Node *, Node *);
 void push_back(Node *, Node *, int);
 
 void pop_head(Node *head, Node *next){
+    Node *temp_node;
+    temp_node = head->next;
+    delete head;
+    head = temp_node;
 
+}
+
+void push_back(Node *prev, Node *newnode){
+    Node *temp_node;
+    prev
 }
 
 int main(){
     
     srand(time(0));
-
 
     
     return 0;
