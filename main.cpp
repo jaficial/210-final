@@ -40,7 +40,19 @@ struct Node {
 
 void pop_head(Node *, Node *);
 void push_back(Node *, Node *, int);
+void delete_linked_list(Node *, Node *);
+void output_linked_list(Node *);
 
+// iterates through the whole linked list and deletes every node
+void delete_linked_list(Node * current, Node *head){ 
+    while(current){
+        head = current->next;
+        delete current;
+        current = head;
+    }
+}
+
+// pops the head node of the list, head->next becomes the new head
 void pop_head(Node *head, Node *next){
     Node *temp_node;
     temp_node = head->next;
@@ -49,9 +61,21 @@ void pop_head(Node *head, Node *next){
 
 }
 
+// pushes a new node to the back of the list
 void push_back(Node *tail, Node *newnode){
     tail->next = newnode;
     newnode->next = nullptr;
+}
+
+
+void output_linked_list(Node *current){
+    if (!current){
+        cout << "Noone is currently in queue." << endl;
+        return;
+    }
+    while (current){
+        cout << "Customer Name: " << current->customer_name << ", Customer Order: "
+    }
 }
 
 int main(){
@@ -59,8 +83,12 @@ int main(){
     srand(time(0));
     Node *head = nullptr;
     Node *newNode = nullptr;
+    Node *tail = nullptr;
+    
     int rand_drink_indx = 0;
     int rand_name_indx = 0;
+    
+    // initializing linked list with 3 customers/nodes
     for (int i = 0; i < 2; i++){
         rand_drink_indx = rand() % TOTAL_DRINKS;
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
@@ -68,9 +96,20 @@ int main(){
         newNode->customer_name = names[rand_name_indx];
         newNode->drink_order = drinks[rand_drink_indx];
         if (!head){ // if this is the first node, it is the new head; CITED: cited from my lab-17 submission
-            
-        } 
+            head = newNode;
+            newNode->next = nullptr;
+            tail = head;
+        }
+
+        else { // its a second node/following node
+            push_back(tail, newNode);
+        }
     }
     
+    Node *current = head; // current will be used to iterate through linked list
+    for (int i = 0; i < 2; i ++){
+        cout << "This is the customer's name: " << current->customer_name << " and this is their drink order: " << current->drink_order << endl;
+
+    }
     return 0;
 }
