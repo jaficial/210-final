@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include <list>
 
 using namespace std;
 const int TOTAL_DRINKS = 5;
@@ -37,6 +38,10 @@ struct Node {
     string customer_name;
     string drink_order;
     Node *next;
+};
+
+struct Name{
+    string customer_name;
 };
 
 void pop_head(Node *, Node *);
@@ -113,13 +118,14 @@ int main(){
     srand(time(0));
     Node *head = nullptr;
     Node *tail = head;
-    deque<string> muffin_q;
-    vector<string> bracelets_q;
+    deque<Name> muffin_q;
+    vector<Name> bracelets_q;
     
     int rand_drink_indx = 0;
     int rand_name_indx = 0;
 
-    // initializing the deque and vector with 3 customers
+    // initializing the deque, vector, and list with 3 customers
+    // NOTE: std:: list will be my choice for the 4th data structure
     for (int i = 0; i < 3; i++){
         string temp_name;
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
@@ -219,9 +225,24 @@ int main(){
 
         // FOR BRACELETS QUEUE
         probability = rand() % 100;
-        if (probability < 50){ // someone joins
-
+        if (probability < 50){ // someone joins the queue
+            cout << endl;
+            rand_name_indx = rand() % TOTAL_CUSTOMERS;
+            temp_name = names[rand_name_indx];
+            bracelets_q.push_back(temp_name);
+            auto bracelets_q_head = bracelets_q.begin();// NOTE: vector doesn't have pop_front method, use .begin() to access the head element
+            bracelets_q.erase(bracelets_q_head);
+            output_vector(bracelets_q);
         }
+
+        else{ // noone joins the queue
+            cout << endl;
+            auto bracelets_q_head = bracelets_q.begin();
+            bracelets_q.erase(bracelets_q_head);
+            output_vector(bracelets_q);
+        }
+
+
     }
     return 0;
 }
