@@ -64,10 +64,10 @@ void pop_head(Node *head, Node *next){
 
 // pushes a new node to the back of the list
 void push_back(Node *tail, Node *newnode, string temp_name, string temp_drink){
-    newnode->next = nullptr;
+    tail->next = newnode;
     newnode->customer_name = temp_name;
     newnode->drink_order = temp_drink;
-    tail->next = newnode;
+    newnode->next = nullptr;
 }
 
 
@@ -104,6 +104,7 @@ int main(){
         
         Node *newNode = new Node;
         if (!head){
+            cout << "made it here for head node" << endl; 
             newNode->next = nullptr;
             newNode->customer_name = names[rand_name_indx];
             newNode->drink_order = drinks[rand_drink_indx];
@@ -112,11 +113,20 @@ int main(){
         }
 
         else {
+            cout << "made it here for subsequent nodes" << endl;
+            temp_name = names[rand_name_indx];
+            temp_drink = drinks[rand_drink_indx];
             push_back(tail, newNode, temp_name, temp_drink);
         }
     }
-    Node *current = head; // current will be used to iterate through linked list
+    //  cout << "should be the head: " << head->customer_name << " " << head->drink_order << endl;
+    //  cout << "should be the head as well: " << tail->customer_name << " " << tail->drink_order << endl;
 
-    output_linked_list(current);
+    Node *current = head; // current will be used to iterate through linked list
+    // output_linked_list(head);
+    for (int i = 0; i < 3; i++){
+        cout << "Customer's name: " << current->customer_name << " Customer's order: " << current->drink_order << endl;
+        current = current->next;
+    }
     return 0;
 }
