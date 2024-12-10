@@ -2,6 +2,8 @@
 // github link: https://github.com/jaficial/210-final
 
 #include <iostream>
+#include <vector>
+#include <deque>
 #include <fstream>
 #include <deque>
 #include <string>
@@ -89,14 +91,28 @@ int main(){
     srand(time(0));
     Node *head = nullptr;
     Node *tail = head;
-
+    deque<string> muffin_q;
+    vector<string> bracelets_q;
     
     int rand_drink_indx = 0;
     int rand_name_indx = 0;
-    
+
+    // initializing the deque and vector with 3 customers
+    for (int i = 0; i < 3; i++){
+        string temp_name;
+        rand_name_indx = rand() % TOTAL_CUSTOMERS;
+        temp_name = names[rand_name_indx];
+        muffin_q.push_back(temp_name);
+
+        rand_name_indx = rand() % TOTAL_CUSTOMERS;
+        temp_name = names[rand_name_indx];
+        bracelets_q.push_back(temp_name);
+    }
+
     // initializing linked list with 3 customers/nodes
     // CITED: Cited my lab-18 submission for initializing a linked list
-    for (int i = 0; i < 4; i++){
+
+    for (int i = 0; i < 3; i++){
         string temp_name;
         string temp_drink;
         rand_drink_indx = rand() % TOTAL_DRINKS;
@@ -131,6 +147,7 @@ int main(){
         Node *temp_node = new Node;
         probability = rand() % 100;
 
+        // FOR COFFEE BOOTH QUEUE
         if (probability < 50){ // someone joins the queue
             if (!head){ // there is no head node
                 temp_node->next = nullptr;
@@ -138,20 +155,28 @@ int main(){
                 temp_node->drink_order = drinks[rand_drink_indx];
                 head = temp_node;
                 tail = head;
+                output_linked_list(head);
             }
 
             else{
                 temp_name = names[rand_name_indx];
                 temp_drink = drinks[rand_drink_indx];
                 push_back(tail, temp_node, temp_name, temp_drink);
+                output_linked_list(head);
             }
         }
 
-        else {
-            pop_head(head, head->next);
-        }
-        
+        else { // nooone joins the queue, 
+            if(!head){ // if there isn't anyone in the queue
+                cout << "There is noone in the queue currently." << endl;
+            }
 
+            else{
+                pop_head(head, head->next);
+                output_linked_list(head);
+            }
+            
+        }
 
     }
     return 0;
