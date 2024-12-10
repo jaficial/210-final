@@ -9,8 +9,13 @@
 using namespace std;
 
 string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami", 
-                    "Tara", ""}
+                    "Tara", "Axel", "Ola", "Beth", "Boyd", "Rosa", "Ezra",
+                     "Mara", "Rico", "Kurt", "Nell", "Cami", "Zeke", "Yoko", 
+                     "Bree", "Seth", "Amos", "Luke", "Elle", "Jody", "Effy", 
+                     "Cici", "Vivi", "Rene", "Zoie", "Arlo", "Erin", "Pete", 
+                     "Amy", "Owen", "Joel", "Joey", "Eddy", "Hana"}; // CITED: Names used from lab-23's data file
 
+string drinks[] = {"Black Coffee", "Latte", "Tea", "Water", "Juice"};
 // NOTE: 4 BOOTHS TO CREATE:
 /*
     COFFEE BOOTH: USE LINKED LIST
@@ -29,11 +34,18 @@ struct Node {
     string drink_order;
 };
 
+void pop_head(Node *, Node *);
+void push_back(Node *, Node *, int);
+
+void pop_head(Node *head, Node *next){
+
+}
+
 int main(){
-    ifstream fin("names.txt");
+    
     srand(time(0));
 
 
-    fin.close();
+    
     return 0;
 }
