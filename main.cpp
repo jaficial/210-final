@@ -42,6 +42,8 @@ struct Node {
 
 struct Name{
     string customer_name;
+    // Constructor for the customer's name:
+    Name(string name) : customer_name(name) {}
 };
 
 void pop_head(Node *, Node *);
@@ -91,25 +93,25 @@ void output_linked_list(Node *linked_list){
     }
 }
 
-void output_deque(deque<string> muffin_q){
+void output_deque(deque<Name> muffin_q){
     cout << "Current Queue for Muffin Shop:" << endl;
     if (muffin_q.empty()){
         cout << "Nobody in queue." << endl;
     }
 
     for (auto iter : muffin_q){
-        cout << iter << endl;
+        cout << iter.customer_name << endl;
     }
 }
 
-void output_vector(vector<string> bracelets_q){
+void output_vector(vector<Name> bracelets_q){
     cout << "Current Queue for Bracelets Shop:" << endl;
     if (bracelets_q.empty()){
         cout << "Nobody in queue." << endl;
         return;
     }
     for (auto iter : bracelets_q){
-        cout << iter << endl;
+        cout << iter.customer_name << endl;
     }
 }
 
@@ -127,13 +129,12 @@ int main(){
     // initializing the deque, vector, and list with 3 customers
     // NOTE: std:: list will be my choice for the 4th data structure
     for (int i = 0; i < 3; i++){
-        string temp_name;
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
-        temp_name = names[rand_name_indx];
+        Name temp_name(names[rand_name_indx]);
         muffin_q.push_back(temp_name);
 
         rand_name_indx = rand() % TOTAL_CUSTOMERS;
-        temp_name = names[rand_name_indx];
+        temp_name(names[rand_name_indx]);
         bracelets_q.push_back(temp_name);
     }
 
