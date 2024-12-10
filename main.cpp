@@ -9,7 +9,7 @@
 using namespace std;
 
 string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami", 
-                    ""}
+                    "Tara", ""}
 
 // NOTE: 4 BOOTHS TO CREATE:
 /*
